@@ -1,61 +1,28 @@
-# Linear Regression Analysis on Coffee Shop Revenue
+# Coffee Shop Revenue Prediction via Linear Regression
 
-This project explores the application of **Simple Linear Regression**, **Multiple Linear Regression**, and **Polynomial Regression** to analyze and predict daily revenue for a coffee shop based on various features.
+## Project Overview
 
-## Dataset
+This project focuses on predicting daily coffee shop revenue using Simple, Multiple, and Polynomial Linear Regression models. Working with a dataset of 2,000 daily transaction records, the goal was to identify the most significant operational drivers of revenue—such as customer foot traffic and average order value. By rigorously evaluating feature independence and comparing multiple modeling techniques, the project successfully delivered a robust multiple linear regression model that significantly outperformed simpler baselines, offering actionable insights for coffee shop financial forecasting.
 
-The dataset used in this analysis is `coffee_shop_revenue.csv`, which contains the following columns:
+## Key Technical Steps
 
-- `Number_of_Customers_Per_Day`: Number of customers visiting the coffee shop daily.
-- `Average_Order_Value`: Average value of an order in dollars.
-- `Operating_Hours_Per_Day`: Number of hours the shop operates daily.
-- `Number_of_Employees`: Number of employees working daily.
-- `Marketing_Spend_Per_Day`: Daily marketing expenditure in dollars.
-- `Location_Foot_Traffic`: Foot traffic near the coffee shop's location.
-- `Daily_Revenue`: Total revenue generated daily (target variable).
-
-## Notebook Overview
-
-The notebook `linear_regression.ipynb` implements the following:
-
-1. **Data Preprocessing**:
-   - Loading and exploring the dataset.
-   - Handling missing values (if any) and scaling features.
-
-2. **Simple Linear Regression**:
-   - Analyzing the relationship between a single independent variable (e.g., `Number_of_Customers_Per_Day`) and the target variable (`Daily_Revenue`).
-
-3. **Multiple Linear Regression**:
-   - Using multiple independent variables to predict the target variable.
-
-4. **Polynomial Regression**:
-   - Extending linear regression to capture non-linear relationships between features and the target variable.
-
-5. **Model Comparison**:
-   - Comparing the performance of the three regression models using metrics such as Mean Squared Error (MSE) and R-squared.
-
-## How to Use
-
-1. Ensure you have the required libraries installed:
-   - `pandas`
-   - `numpy`
-   - `matplotlib`
-   - `scikit-learn`
-
-2. Open the `linear_regression.ipynb` notebook in Jupyter Notebook or VS Code.
-
-3. Run the cells sequentially to:
-   - Load the dataset.
-   - Train and evaluate the regression models.
-   - Visualize the results.
+- **Data Cleaning:** Validated 2,000 records, identifying and removing 1 logically invalid record containing negative daily revenue to ensure data integrity.
+- **Exploratory Data Analysis (EDA):** Analyzed variable relationships using `seaborn` correlation heatmaps, identifying `Number_of_Customers_Per_Day` and `Average_Order_Value` as primary revenue predictors.
+- **Multicollinearity Check:** Calculated Variance Inflation Factor (VIF) using `statsmodels` to rigorously verify that the selected independent predictors did not suffer from multicollinearity.
+- **Data Preprocessing:** Implemented feature scaling via `StandardScaler` from `scikit-learn` to normalize disparate feature ranges (e.g., customer counts [50-499] vs. order values [2.5-10]) and ensure equal weighting during model convergence.
+- **Model Training & Selection:** Engineered and evaluated three separate models (Simple Linear, Multiple Linear, and Polynomial Degrees 2-4), analyzing the trade-offs between adding feature complexity vs. algorithmic complexity.
 
 ## Results
 
-The notebook provides insights into:
-- The effectiveness of each regression model in predicting daily revenue.
-- The impact of different features on revenue generation.
-- The advantages of using polynomial regression for capturing non-linear patterns.
+- Discovered that adding multiple predictive features (Multiple Linear) was vastly superior to applying higher-degree polynomial transformations (Polynomial) to a single feature.
+- Built a final Multiple Linear Regression model achieving an **$R^2$ of 0.8953**, explaining nearly 90% of the variance in daily revenue.
+- The Multiple Linear Regression model reduced the **Mean Squared Error (MSE) by 76.76%** (down to 105,926 from 455,703) compared to the baseline Simple Linear Regression model.
+- Demonstrated that quadratic and higher-degree polynomial extensions failed to meaningfully improve upon the baseline $R^2$ of 0.5498, highlighting the linear nature of the shop's underlying economics.
 
-## Conclusion
+## Technologies Used
 
-This project demonstrates the application of regression techniques to a real-world dataset, providing a foundation for further exploration of predictive modeling in business contexts.
+- **Language:** Python 3.x
+- **Data Manipulation:** `pandas`, `numpy`
+- **Statistical Testing:** `statsmodels` (VIF Analysis)
+- **Machine Learning:** `scikit-learn` (LinearRegression, PolynomialFeatures, StandardScaler, model evaluation metrics)
+- **Visualization:** `matplotlib`, `seaborn`
